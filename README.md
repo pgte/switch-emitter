@@ -10,7 +10,7 @@ $ npm install switch-emitter
 
 ## Listen and emit to addressed events
 
-```
+```javascript
 var switchEmitter = require('switch-emitter');
 
 var recipientA = switchEmitter.to('recipient-a');
