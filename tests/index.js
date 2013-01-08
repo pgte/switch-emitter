@@ -25,3 +25,57 @@ test('non-addressed recipient doesnt get event', function(t) {
   se.emit('recipient-b', 'event', 'a', 'b');
   t.ok(true, 'done');
 });
+
+test('accepts array as recipients', function(t) {  
+  t.plan(2);
+  var se = switchEmitter();
+  
+  var recipientA = se.to('recipient-a');
+  recipientA.on('event', function() {
+    t.ok(true, 'reached recipient a');
+  });
+
+  var recipientB = se.to('recipient-b');
+  recipientB.on('event', function() {
+    t.ok(true, 'reached recipient b');
+  });
+
+  se.emit(['recipient-a', 'recipient-b', 'recipient-c'], 'event', 'a', 'b');
+
+});
+
+test('accepts array inside arrays as recipients', function(t) {  
+  t.plan(2);
+  var se = switchEmitter();
+  
+  var recipientA = se.to('recipient-a');
+  recipientA.on('event', function() {
+    t.ok(true, 'reached recipient a');
+  });
+
+  var recipientB = se.to('recipient-b');
+  recipientB.on('event', function() {
+    t.ok(true, 'reached recipient b');
+  });
+
+  se.emit(['recipient-a', ['recipient-b', 'recipient-z'], 'recipient-c'], 'event', 'a', 'b');
+
+});
+
+test('accepts undefined recipients', function(t) {  
+  t.plan(2);
+  var se = switchEmitter();
+  
+  var recipientA = se.to('recipient-a');
+  recipientA.on('event', function() {
+    t.ok(true, 'reached recipient a');
+  });
+
+  var recipientB = se.to('recipient-b');
+  recipientB.on('event', function() {
+    t.ok(true, 'reached recipient b');
+  });
+
+  se.emit(['recipient-a', ['recipient-b', 'recipient-z', undefined], 'recipient-c'], 'event', 'a', 'b');
+
+});

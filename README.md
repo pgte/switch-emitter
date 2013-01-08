@@ -29,6 +29,18 @@ recipientA.on('event', function(a, b) {
 emitter.emit('recipient-a', 'event', 'a', 'b')
 ```
 
+The recipient list, the first argument of `emit`, can also be an array:
+
+```javascript
+emitter.emit(['recipient-a', 'recipient-b'], 'event', 'a', 'b')
+```
+
+or an array inside an array:
+
+```javascript
+emitter.emit(['recipient-a', ['recipient-b', 'recipient-c']], 'event', 'a', 'b')
+```
+
 ## Licence
 
 MIT

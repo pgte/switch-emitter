@@ -1,8 +1,20 @@
 var EventEmitter = require('events').EventEmitter;
 
-function emit(recipient) {
+function emit(recipients) {
+  var self = this;
+  if (!Array.isArray(recipients)) {
+    recipients = [recipients];
+  }
   var args = Array.prototype.slice.call(arguments, 1);
-  this._previousEmit.call(this, recipient, args);
+  
+  function distributeTo(recipients) {
+    recipients.forEach(function emitToOne(recipient) {
+      if (Array.isArray(recipient)) return distributeTo(recipient);
+      if (recipient) self._previousEmit.call(self, recipient, args);
+    });      
+  };
+
+  distributeTo(recipients);
 }
 
 function to(recipient) {
