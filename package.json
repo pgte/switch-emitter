@@ -1,7 +1,7 @@
 {
   "name": "switch-emitter",
   "description": "Events with recipient address",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author" : "Pedro Teixeira <pedro.teixeira@gmail.com>",
   "contributors" : [
     {"name": "Pedro Teixeira"}
