@@ -29,6 +29,8 @@ recipientA.on('event', function(a, b) {
 emitter.emit('recipient-a', 'event', 'a', 'b')
 ```
 
+## Arrays for recipients
+
 The recipient list, the first argument of `emit`, can also be an array:
 
 ```javascript
@@ -39,6 +41,17 @@ or an array inside an array:
 
 ```javascript
 emitter.emit(['recipient-a', ['recipient-b', 'recipient-c']], 'event', 'a', 'b')
+```
+
+
+## Close recipient so it doesn't emit more events
+
+```javascript
+var recipientA = emitter.to('recipient-a');
+
+// ...
+
+recipientA.end();
 ```
 
 ## Licence

@@ -18,11 +18,19 @@ function emit(recipients) {
 }
 
 function to(recipient) {
+  var self = this;
   var recipientEE = new EventEmitter();
-  
-  this.on(recipient, function(args) {
+
+  function onMessage(args) {
     recipientEE.emit.apply(recipientEE, args);
-  });
+  }
+  
+  this.on(recipient, onMessage);
+
+  // End function
+  recipientEE.end = function() {
+    self.removeListener(recipient, onMessage);
+  };
 
   return recipientEE;
 }

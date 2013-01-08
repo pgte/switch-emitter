@@ -79,3 +79,16 @@ test('accepts undefined recipients', function(t) {
   se.emit(['recipient-a', ['recipient-b', 'recipient-z', undefined], 'recipient-c'], 'event', 'a', 'b');
 
 });
+
+test('a recipient ends so it doesnt emit more events', function(t) {
+  t.plan(1);
+
+  var se = switchEmitter();
+  var recipient = se.to('recipientA');
+  recipient.on('event', function() {
+    t.ok(true, 'got event');
+  });
+  se.emit('recipientA', 'event');
+  recipient.end();
+  se.emit('recipientA', 'event');
+});
