@@ -12,9 +12,10 @@ $ npm install switch-emitter
 
 ```javascript
 var switchEmitter = require('switch-emitter');
+var emitter = switchEmitter();
 
-var recipientA = switchEmitter.to('recipient-a');
-var recipientB = switchEmitter.to('recipient-b');
+var recipientA = emitter.to('recipient-a');
+var recipientB = emitter.to('recipient-b');
 
 // recipientA and recipientB are event emitters
 
@@ -25,7 +26,7 @@ recipientA.on('event', function(a, b) {
 });
 
 // Send event to recipient-a
-switchEmitter.emit('recipient-a', 'event', 'a', 'b')
+emitter.emit('recipient-a', 'event', 'a', 'b')
 ```
 
 ## Licence
