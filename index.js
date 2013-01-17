@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 
-function emit(recipients) {
+function send(recipients) {
   var self = this;
   if (!Array.isArray(recipients)) {
     recipients = [recipients];
@@ -10,7 +10,7 @@ function emit(recipients) {
   function distributeTo(recipients) {
     recipients.forEach(function emitToOne(recipient) {
       if (Array.isArray(recipient)) return distributeTo(recipient);
-      if (recipient) self._previousEmit.call(self, recipient, args);
+      if (recipient) self.emit.call(self, recipient, args);
     });      
   };
 
@@ -35,11 +35,10 @@ function to(recipient) {
   return recipientEE;
 }
 
-module.exports = function() {
-  var ee = new EventEmitter();
+module.exports = function(ee) {
+  if (! ee) ee = new EventEmitter();
 
-  ee._previousEmit = ee.emit;
-  ee.emit = emit;
+  ee.send = send;
   ee.to = to;
 
   return ee;

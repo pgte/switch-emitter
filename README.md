@@ -26,7 +26,7 @@ recipientA.on('event', function(a, b) {
 });
 
 // Send event to recipient-a
-emitter.emit('recipient-a', 'event', 'a', 'b')
+emitter.send('recipient-a', 'event', 'a', 'b')
 ```
 
 ## Arrays for recipients
@@ -34,13 +34,13 @@ emitter.emit('recipient-a', 'event', 'a', 'b')
 The recipient list, the first argument of `emit`, can also be an array:
 
 ```javascript
-emitter.emit(['recipient-a', 'recipient-b'], 'event', 'a', 'b')
+emitter.send(['recipient-a', 'recipient-b'], 'event', 'a', 'b')
 ```
 
 or an array inside an array:
 
 ```javascript
-emitter.emit(['recipient-a', ['recipient-b', 'recipient-c']], 'event', 'a', 'b')
+emitter.send(['recipient-a', ['recipient-b', 'recipient-c']], 'event', 'a', 'b')
 ```
 
 

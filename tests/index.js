@@ -12,7 +12,7 @@ test('addressed recipient gets event', function(t) {
     t.equal(c, undefined);
   });
   
-  se.emit('recipient-a', 'event', 'a', 'b');
+  se.send('recipient-a', 'event', 'a', 'b');
 });
 
 test('non-addressed recipient doesnt get event', function(t) {
@@ -22,7 +22,7 @@ test('non-addressed recipient doesnt get event', function(t) {
   recipient.on('event', function() {
     t.ok(false, 'should not reach here');
   });
-  se.emit('recipient-b', 'event', 'a', 'b');
+  se.send('recipient-b', 'event', 'a', 'b');
   t.ok(true, 'done');
 });
 
@@ -40,7 +40,7 @@ test('accepts array as recipients', function(t) {
     t.ok(true, 'reached recipient b');
   });
 
-  se.emit(['recipient-a', 'recipient-b', 'recipient-c'], 'event', 'a', 'b');
+  se.send(['recipient-a', 'recipient-b', 'recipient-c'], 'event', 'a', 'b');
 
 });
 
@@ -58,7 +58,7 @@ test('accepts array inside arrays as recipients', function(t) {
     t.ok(true, 'reached recipient b');
   });
 
-  se.emit(['recipient-a', ['recipient-b', 'recipient-z'], 'recipient-c'], 'event', 'a', 'b');
+  se.send(['recipient-a', ['recipient-b', 'recipient-z'], 'recipient-c'], 'event', 'a', 'b');
 
 });
 
@@ -76,11 +76,11 @@ test('accepts undefined recipients', function(t) {
     t.ok(true, 'reached recipient b');
   });
 
-  se.emit(['recipient-a', ['recipient-b', 'recipient-z', undefined], 'recipient-c'], 'event', 'a', 'b');
+  se.send(['recipient-a', ['recipient-b', 'recipient-z', undefined], 'recipient-c'], 'event', 'a', 'b');
 
 });
 
-test('a recipient ends so it doesnt emit more events', function(t) {
+test('a recipient ends so it doesnt send more events', function(t) {
   t.plan(1);
 
   var se = switchEmitter();
@@ -88,7 +88,7 @@ test('a recipient ends so it doesnt emit more events', function(t) {
   recipient.on('event', function() {
     t.ok(true, 'got event');
   });
-  se.emit('recipientA', 'event');
+  se.send('recipientA', 'event');
   recipient.end();
-  se.emit('recipientA', 'event');
+  se.send('recipientA', 'event');
 });
